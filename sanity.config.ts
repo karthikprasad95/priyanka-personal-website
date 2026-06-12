@@ -6,7 +6,7 @@ import { schema } from "./src/sanity/schema";
 export default defineConfig({
   name: "priyanka-personal-website",
   title: "Priyanka's Site",
-  projectId: process.env.PUBLIC_SANITY_PROJECT_ID ?? "placeholder",
+  projectId: process.env.PUBLIC_SANITY_PROJECT_ID ?? "wb24ea22",
   dataset: process.env.PUBLIC_SANITY_DATASET ?? "production",
   plugins: [
     structureTool({

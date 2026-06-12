@@ -7,7 +7,7 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [
     sanity({
-      projectId: process.env.PUBLIC_SANITY_PROJECT_ID ?? "placeholder",
+      projectId: process.env.PUBLIC_SANITY_PROJECT_ID ?? "wb24ea22",
       dataset: process.env.PUBLIC_SANITY_DATASET ?? "production",
       studioBasePath: "/studio",
       useCdn: false,
