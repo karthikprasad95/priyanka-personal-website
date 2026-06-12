@@ -1,7 +1,10 @@
 name = "priyanka-personal-website"
+main = "dist/_worker.js"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = "./dist"
+
+[assets]
+directory = "./dist"
 
 [vars]
 PUBLIC_SANITY_PROJECT_ID = "wb24ea22"
