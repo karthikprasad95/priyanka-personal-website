@@ -1,0 +1,113 @@
+---
+interface Tool {
+  name: string;
+  category: string;
+  description: string;
+  url?: string;
+}
+
+interface Props {
+  tools?: Tool[];
+}
+
+const { tools = [
+  { name: "PRS India", category: "Research & Policy", description: "My go-to for tracking legislation, bills, and parliamentary activity.", url: "https://prsindia.org" },
+  { name: "Elicit", category: "Research & Policy", description: "AI-assisted literature review, genuinely useful for policy research.", url: "https://elicit.com" },
+  { name: "Zotero", category: "Research & Policy", description: "Reference management for keeping research organised across projects.", url: "https://zotero.org" },
+  { name: "Notion", category: "Writing & Thinking", description: "Second brain: notes, drafts, meeting prep, project tracking.", url: "https://notion.so" },
+  { name: "Google Docs", category: "Writing & Thinking", description: "Still the best for collaborative drafting and stakeholder documents.", url: "https://docs.google.com" },
+  { name: "iA Writer", category: "Writing & Thinking", description: "Distraction-free when I need to actually finish something.", url: "https://ia.net/writer" },
+  { name: "Readwise Reader", category: "Staying Informed", description: "Where I send everything worth reading. Highlights sync automatically.", url: "https://readwise.io/read" },
+  { name: "Substack", category: "Staying Informed", description: "Policy, governance, and tech regulation newsletters.", url: "https://substack.com" },
+] } = Astro.props;
+
+const byCategory = tools.reduce<Record<string, Tool[]>>((acc, tool) => {
+  (acc[tool.category] ??= []).push(tool);
+  return acc;
+}, {});
+---
+<div class="wrap">
+  <div class="sec" id="tools">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">What I use</p>
+        <h2 class="sec-title">Tools & <em>Resources</em></h2>
+      </div>
+    </div>
+    <div class="tools-grid">
+      {Object.entries(byCategory).map(([category, categoryTools]) => (
+        <div class="tool-cat">
+          <h3>{category}</h3>
+          <ul class="tool-list">
+            {categoryTools.map((tool) => (
+              <li class="tool-item">
+                <div class="tool-dot"></div>
+                <div>
+                  <p class="tool-name">{tool.name}</p>
+                  <p class="tool-desc">{tool.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--cream3);
+    border: 1px solid var(--cream3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .tool-cat {
+    background: var(--cream);
+    padding: 1.25rem;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .tool-cat:hover { background: var(--cream2); }
+  .tool-cat h3 {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--cream3);
+  }
+  .tool-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .tool-item {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .tool-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .tool-name {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 1px;
+  }
+  .tool-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+</style>

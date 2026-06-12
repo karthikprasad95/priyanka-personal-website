@@ -1,0 +1,137 @@
+---
+interface ExperienceItem {
+  jobTitle: string;
+  organisation: string;
+  location?: string;
+  tag: string;
+  startDate: string;
+  endDate?: string;
+  description: string;
+  featured?: boolean;
+}
+
+interface Props {
+  items?: ExperienceItem[];
+  linkedInUrl?: string;
+}
+
+const { linkedInUrl = "https://www.linkedin.com/in/priyankanavle/", items = [
+  {
+    jobTitle: "Senior Manager – Government Relations, GCC",
+    organisation: "Cloudflare",
+    location: "Bengaluru, India",
+    tag: "Current Role",
+    startDate: "Jul 2025",
+    endDate: "Present",
+    description: "Building Cloudflare's government affairs function in India, with a focus on advancing the Global Capability Center in Bengaluru. Focus areas include AI policy, regulatory engagement, and shaping the policy environment for Cloudflare's India operations.",
+    featured: true,
+  },
+  {
+    jobTitle: "Public Policy Lead",
+    organisation: "Uber",
+    location: "South India & Sri Lanka",
+    tag: "5 yrs 8 mos",
+    startDate: "Dec 2019",
+    endDate: "Jul 2025",
+    description: "Head of Government Relations for South India and Head of Work Policy for India, leading regulatory affairs and the Future of Work charter for India South Asia.",
+  },
+  {
+    jobTitle: "Lecturer",
+    organisation: "Mount Carmel College",
+    location: "Bengaluru",
+    tag: "Education",
+    startDate: "Jul 2019",
+    endDate: "Oct 2019",
+    description: "Designed and established the Participatory Democracy Fellowship in collaboration with B.PAC for graduate Public Policy students.",
+  },
+  {
+    jobTitle: "Program Manager",
+    organisation: "Kshamtalaya Foundation",
+    location: "Karnataka",
+    tag: "Development",
+    startDate: "Nov 2017",
+    endDate: "May 2019",
+    description: "Launched and led a self-organised learning programme reaching 1,200+ primary school students across six villages in rural Karnataka.",
+  },
+] } = Astro.props;
+---
+<div class="wrap">
+  <div class="sec" id="work">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">Career</p>
+        <h2 class="sec-title">My <em>Experience</em></h2>
+      </div>
+      <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="sec-all">LinkedIn →</a>
+    </div>
+    <div class="exp-grid">
+      {items.map((item) => (
+        <div class={`exp-card${item.featured ? " featured" : ""}`}>
+          <div class="exp-meta">
+            <span class="exp-tag">{item.tag}</span>
+            <span class="exp-dates">{item.startDate} – {item.endDate ?? "Present"}</span>
+          </div>
+          <h3>{item.jobTitle}</h3>
+          <p class="exp-org">{item.organisation}{item.location ? ` · ${item.location}` : ""}</p>
+          <p>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--cream3);
+    border: 1px solid var(--cream3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .exp-card {
+    background: var(--cream);
+    padding: 1.5rem;
+    transition: background 0.15s;
+  }
+  .exp-card:hover { background: var(--cream2); }
+  .exp-card.featured {
+    grid-column: span 2;
+  }
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .exp-tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .exp-dates {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .exp-card h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+  }
+  .exp-card.featured h3 { font-size: 1.15rem; }
+  .exp-org {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .exp-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+</style>

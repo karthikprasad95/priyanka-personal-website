@@ -1,0 +1,87 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const {
+  title = "Notes on policy, governance, and ideas worth sharing.",
+  subtitle = "Once or twice a month. No noise, no spam.",
+} = Astro.props;
+---
+<div class="newsletter-bar">
+  <div class="newsletter-inner">
+    <div class="nl-text">
+      <p class="nl-label">Newsletter</p>
+      <p class="nl-title">{title}</p>
+      <p class="nl-sub">{subtitle}</p>
+    </div>
+    <form class="nl-form" method="POST" action="/api/subscribe">
+      <input type="email" name="email" placeholder="your@email.com" required />
+      <button type="submit">Subscribe →</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .newsletter-bar {
+    background: var(--cream2);
+    border-bottom: 1px solid var(--cream3);
+    border-top: 1px solid var(--cream3);
+  }
+  .newsletter-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .nl-text { flex: 1; }
+  .nl-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .nl-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+  .nl-sub {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .nl-form {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .nl-form input {
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--cream3);
+    border-right: none;
+    background: var(--cream);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--charcoal);
+    outline: none;
+    width: 200px;
+    border-radius: 6px 0 0 6px;
+  }
+  .nl-form button {
+    padding: 0.55rem 1rem;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 0 6px 6px 0;
+  }
+  .nl-form button:hover { background: var(--accent); }
+</style>

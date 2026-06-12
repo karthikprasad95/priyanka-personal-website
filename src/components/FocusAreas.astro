@@ -1,0 +1,109 @@
+---
+interface FocusArea {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  areas?: FocusArea[];
+}
+
+const { areas = [
+  {
+    number: "01",
+    title: "Technology & AI Policy",
+    description: "Shaping policy frameworks that balance innovation with ethical oversight — from AI regulation to digital infrastructure and platform governance.",
+  },
+  {
+    number: "02",
+    title: "Future of Work",
+    description: "Designing systems that protect and empower workers in the gig economy, leading Uber's Work Policy charter across India and South Asia.",
+  },
+  {
+    number: "03",
+    title: "Gender & Development",
+    description: "Advancing inclusive growth through policy, from grassroots education programs to working with the UN Population Fund on gender institutions.",
+  },
+] } = Astro.props;
+
+const [main, ...subs] = areas;
+---
+<div class="wrap">
+  <div class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">What I work on</p>
+        <h2 class="sec-title">Areas of <em>Focus</em></h2>
+      </div>
+    </div>
+    <div class="focus-grid">
+      {main && (
+        <div class="focus-card focus-main">
+          <div class="focus-num">{main.number}</div>
+          <h3>{main.title}</h3>
+          <p>{main.description}</p>
+        </div>
+      )}
+      {subs.map((area) => (
+        <div class="focus-card focus-sub">
+          <div class="focus-num">{area.number}</div>
+          <h3>{area.title}</h3>
+          <p>{area.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .focus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--cream3);
+    border: 1px solid var(--cream3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .focus-main {
+    grid-row: span 2;
+    background: var(--cream);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 300px;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .focus-main:hover { background: var(--cream2); }
+  .focus-sub {
+    background: var(--cream);
+    padding: 1.75rem;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .focus-sub:hover { background: var(--cream2); }
+  .focus-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+  .focus-card h3 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .focus-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+</style>

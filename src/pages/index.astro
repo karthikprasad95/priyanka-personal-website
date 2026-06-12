@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import FocusAreas from "../components/FocusAreas.astro";
+import Experience from "../components/Experience.astro";
+import Writing from "../components/Writing.astro";
+import Newsletter from "../components/Newsletter.astro";
+import Books from "../components/Books.astro";
+import Tools from "../components/Tools.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { sanityClient } from "../sanity/client";
+
+// Fetch all content from Sanity in parallel; gracefully fall back to component defaults on error
+const [siteSettings, focusAreas, experiences, posts, books, tools] = await Promise.all([
+  sanityClient.fetch(`*[_type == "siteSettings"][0]{
+    name, headline, bio, currentRole, currentCompany, location,
+    email, linkedInUrl, twitterHandle,
+    "photoUrl": photo.asset->url
+  }`).catch(() => null),
+  sanityClient.fetch(`*[_type == "focusArea"] | order(order asc){
+    number, title, description
+  }`).catch(() => []),
+  sanityClient.fetch(`*[_type == "experience"] | order(order asc){
+    jobTitle, organisation, location, tag, startDate, endDate, description
+  }`).catch(() => []),
+  sanityClient.fetch(`*[_type == "post" && published == true] | order(publishedAt desc)[0..2]{
+    title, "slug": slug.current, publishedAt, readTime, excerpt
+  }`).catch(() => []),
+  sanityClient.fetch(`*[_type == "book"] | order(order asc){
+    title, author, "coverUrl": cover.asset->url, personalNote
+  }`).catch(() => []),
+  sanityClient.fetch(`*[_type == "tool"] | order(order asc){
+    name, category, description, url
+  }`).catch(() => []),
+]);
+---
+<Layout
+  title={siteSettings?.name ?? "Priyanka Navle"}
+  description={siteSettings?.bio?.slice(0, 160) ?? undefined}
+>
+  <Nav name={siteSettings?.name} />
+
+  <Hero
+    headline={siteSettings?.headline}
+    bio={siteSettings?.bio}
+    currentRole={siteSettings?.currentRole}
+    currentCompany={siteSettings?.currentCompany}
+    location={siteSettings?.location}
+    photoUrl={siteSettings?.photoUrl}
+  />
+
+  <FocusAreas areas={focusAreas?.length ? focusAreas : undefined} />
+
+  <Experience
+    items={experiences?.length ? experiences : undefined}
+    linkedInUrl={siteSettings?.linkedInUrl}
+  />
+
+  <Writing posts={posts?.length ? posts : undefined} />
+
+  <Newsletter />
+
+  <Books books={books?.length ? books : undefined} />
+
+  <Tools tools={tools?.length ? tools : undefined} />
+
+  <Contact
+    email={siteSettings?.email}
+    linkedInUrl={siteSettings?.linkedInUrl}
+    twitterHandle={siteSettings?.twitterHandle}
+  />
+
+  <Footer
+    name={siteSettings?.name}
+    location={siteSettings?.location}
+  />
+</Layout>

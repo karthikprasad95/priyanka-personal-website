@@ -1,0 +1,111 @@
+---
+interface Props {
+  email?: string;
+  linkedInUrl?: string;
+  twitterHandle?: string;
+}
+const {
+  email = "hello@priyankanavle.com",
+  linkedInUrl = "https://www.linkedin.com/in/priyankanavle/",
+  twitterHandle = "@priyankanavle",
+} = Astro.props;
+
+const twitterUrl = twitterHandle
+  ? `https://twitter.com/${twitterHandle.replace("@", "")}`
+  : "#";
+---
+<div class="wrap">
+  <div class="sec" id="contact">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">Get in touch</p>
+        <h2 class="sec-title">Get in <em>touch</em></h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <p class="contact-quote">Always glad to talk policy, governance, or <em>finding common ground.</em></p>
+        <p class="contact-tagline">Whether it's a collaboration, a speaking opportunity, or just an idea worth exploring. I try to reply to every message.</p>
+      </div>
+      <div class="contact-right">
+        <a href={`mailto:${email}`} class="contact-row">
+          <span class="contact-type">Email</span>
+          <span class="contact-val">{email}</span>
+        </a>
+        <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="contact-type">LinkedIn</span>
+          <span class="contact-val">{linkedInUrl.replace("https://www.", "")}</span>
+        </a>
+        <a href={twitterUrl} target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="contact-type">Twitter</span>
+          <span class="contact-val">{twitterHandle}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--cream3);
+    border: 1px solid var(--cream3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .contact-left {
+    background: var(--cream2);
+    padding: 2rem;
+    border-radius: 11px 0 0 11px;
+  }
+  .contact-right {
+    background: var(--cream);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-quote {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--charcoal);
+    margin-bottom: 0.75rem;
+  }
+  .contact-quote em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .contact-tagline {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--cream3);
+    text-decoration: none;
+    color: inherit;
+  }
+  .contact-row:first-child { border-top: 1px solid var(--cream3); }
+  .contact-row:hover .contact-val { color: var(--accent); }
+  .contact-type {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 56px;
+    flex-shrink: 0;
+  }
+  .contact-val {
+    font-size: 13px;
+    color: var(--charcoal);
+  }
+</style>

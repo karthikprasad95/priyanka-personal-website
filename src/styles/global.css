@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #FAFAF7;
+  --cream2: #F2EDE4;
+  --cream3: #E0D8CC;
+  --charcoal: #1E1E1C;
+  --muted: #6B6560;
+  --accent: #A0622A;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--charcoal); font-family: var(--sans); font-size: 14px; line-height: 1.6; }
+
+/* SHARED */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+.sec { padding: 2.5rem 0; border-bottom: 1px solid var(--cream3); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.5rem; }
+.sec-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.sec-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--charcoal); }
+.sec-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+.sec-all { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; }
+.sec-all:hover { color: var(--accent); }

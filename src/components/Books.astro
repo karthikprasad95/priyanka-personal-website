@@ -1,0 +1,130 @@
+---
+interface Book {
+  title: string;
+  author: string;
+  coverUrl?: string | null;
+  coverColor?: string;
+  personalNote: string;
+}
+
+interface Props {
+  books?: Book[];
+}
+
+const COVER_COLORS = ["#C8B89A", "#A8B8A4", "#B8A8B0", "#A8B4BC"];
+const COVER_TEXT_COLORS = ["#3A2C1A", "#1E2E1A", "#2E1E2A", "#1A242C"];
+
+const { books = [
+  {
+    title: "Seeing Like a State",
+    author: "James C. Scott",
+    personalNote: "Essential for anyone in policy. Changes how you think about top-down planning.",
+  },
+  {
+    title: "The Entrepreneurial State",
+    author: "Mariana Mazzucato",
+    personalNote: "A powerful reframe of the state's role in innovation.",
+  },
+  {
+    title: "Doughnut Economics",
+    author: "Kate Raworth",
+    personalNote: "A new lens for thinking about growth and wellbeing.",
+  },
+  {
+    title: "The Ministry for the Future",
+    author: "Kim Stanley Robinson",
+    personalNote: "Fiction that thinks harder about climate than most non-fiction.",
+  },
+] } = Astro.props;
+---
+<div class="wrap">
+  <div class="sec" id="books">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">What I'm reading</p>
+        <h2 class="sec-title">What I'm <em>Reading</em></h2>
+      </div>
+      <a href="/books" class="sec-all">Full shelf →</a>
+    </div>
+    <div class="books-grid">
+      {books.map((book, i) => (
+        <div class="book-card">
+          {book.coverUrl ? (
+            <img class="book-cover book-cover-img" src={book.coverUrl} alt={book.title} />
+          ) : (
+            <div
+              class="book-cover"
+              style={`background: ${COVER_COLORS[i % COVER_COLORS.length]}; color: ${COVER_TEXT_COLORS[i % COVER_TEXT_COLORS.length]};`}
+            >
+              {book.title}
+            </div>
+          )}
+          <div class="book-info">
+            <p class="book-title">{book.title}</p>
+            <p class="book-author">{book.author}</p>
+            <p class="book-note">{book.personalNote}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--cream3);
+    border: 1px solid var(--cream3);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .book-card {
+    background: var(--cream);
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.15s;
+  }
+  .book-card:hover { background: var(--cream2); }
+  .book-cover {
+    width: 100%;
+    aspect-ratio: 3/2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 12px;
+    text-align: center;
+    padding: 0.75rem;
+    line-height: 1.3;
+  }
+  .book-cover-img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    display: block;
+  }
+  .book-info {
+    padding: 0.75rem;
+    border-top: 1px solid var(--cream3);
+  }
+  .book-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+  .book-author {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .book-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+</style>

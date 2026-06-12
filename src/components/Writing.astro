@@ -1,0 +1,115 @@
+---
+interface Post {
+  title: string;
+  slug: string;
+  publishedAt?: string;
+  readTime?: number;
+  excerpt: string;
+}
+
+interface Props {
+  posts?: Post[];
+}
+
+const { posts = [
+  {
+    title: "What it actually takes to change policy from the inside",
+    slug: "#",
+    publishedAt: undefined,
+    readTime: 8,
+    excerpt: "Eight years of navigating governments, unions, and civil society. What I've learned about how real change happens.",
+  },
+  {
+    title: "The Future of Work isn't just about jobs — it's about dignity",
+    slug: "#",
+    publishedAt: undefined,
+    readTime: 6,
+    excerpt: "Reflections from leading Uber's work policy charter and what platform workers in India actually need.",
+  },
+  {
+    title: "Why I left academia for policy — and what I brought with me",
+    slug: "#",
+    publishedAt: undefined,
+    readTime: 5,
+    excerpt: "On participatory governance and why being close to the ground matters more than being close to power.",
+  },
+] } = Astro.props;
+---
+<div class="wrap">
+  <div class="sec" id="writing">
+    <div class="sec-head">
+      <div>
+        <p class="sec-label">From the blog</p>
+        <h2 class="sec-title">Latest <em>Writing</em></h2>
+      </div>
+      <a href="/writing" class="sec-all">All posts →</a>
+    </div>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <a href={post.slug === "#" ? "#" : `/writing/${post.slug}`} class="blog-card">
+          <div class="blog-byline">
+            {post.publishedAt ? post.publishedAt : "Coming soon"}
+            <span class="sep">·</span>
+            {post.readTime} min read
+          </div>
+          <h3>{post.title}</h3>
+          <p>{post.excerpt}</p>
+          <span class="blog-read">Read →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--cream3);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .blog-card:hover { background: var(--cream2); }
+  .blog-byline {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .blog-byline .sep {
+    margin: 0 0.35rem;
+    opacity: 0.4;
+  }
+  .blog-card h3 {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+    transition: color 0.15s;
+  }
+  .blog-card:hover h3 { color: var(--accent); }
+  .blog-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .blog-read {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: auto;
+  }
+</style>
