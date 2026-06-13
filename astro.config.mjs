@@ -16,4 +16,11 @@ export default defineConfig({
       apiVersion: "2024-01-01",
     }),
   ],
+  vite: {
+    resolve: {
+      alias: {
+        "react-dom/server": "react-dom/server.edge",
+      },
+    },
+  },
 });
