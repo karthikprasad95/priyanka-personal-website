@@ -29,7 +29,7 @@ const {
     border-top: 1px solid var(--cream3);
   }
   .newsletter-inner {
-    max-width: 860px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 1.5rem 2rem;
     display: flex;
@@ -84,4 +84,9 @@ const {
     border-radius: 0 6px 6px 0;
   }
   .nl-form button:hover { background: var(--accent); }
+  @media (max-width: 640px) {
+    .newsletter-inner { flex-direction: column; gap: 1rem; }
+    .nl-form { width: 100%; }
+    .nl-form input { flex: 1; }
+  }
 </style>

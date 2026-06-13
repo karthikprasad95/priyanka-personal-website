@@ -134,4 +134,8 @@ const { linkedInUrl = "https://www.linkedin.com/in/priyankanavle/", items = [
     color: var(--muted);
     line-height: 1.65;
   }
+  @media (max-width: 640px) {
+    .exp-grid { grid-template-columns: 1fr; }
+    .exp-card { grid-column: span 1 !important; }
+  }
 </style>

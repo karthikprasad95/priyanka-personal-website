@@ -106,4 +106,8 @@ const [main, ...subs] = areas;
     color: var(--muted);
     line-height: 1.7;
   }
+  @media (max-width: 640px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .focus-card:first-child { grid-row: span 1; }
+  }
 </style>

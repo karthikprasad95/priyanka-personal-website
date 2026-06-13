@@ -127,4 +127,7 @@ const { books = [
     color: var(--muted);
     line-height: 1.5;
   }
+  @media (max-width: 640px) {
+    .books-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>

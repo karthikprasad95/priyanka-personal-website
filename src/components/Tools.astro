@@ -110,4 +110,7 @@ const byCategory = tools.reduce<Record<string, Tool[]>>((acc, tool) => {
     color: var(--muted);
     line-height: 1.5;
   }
+  @media (max-width: 640px) {
+    .tools-grid { grid-template-columns: 1fr; }
+  }
 </style>

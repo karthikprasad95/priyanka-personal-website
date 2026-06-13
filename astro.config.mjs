@@ -18,9 +18,9 @@ export default defineConfig({
   ],
   vite: {
     resolve: {
-      alias: {
-        "react-dom/server": "react-dom/server.edge",
-      },
+      alias: process.env.NODE_ENV === "production"
+        ? { "react-dom/server": "react-dom/server.edge" }
+        : {},
     },
   },
 });

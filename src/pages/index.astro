@@ -11,13 +11,14 @@ import Tools from "../components/Tools.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import { sanityClient } from "../sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
 // Fetch all content from Sanity in parallel; gracefully fall back to component defaults on error
 const [siteSettings, focusAreas, experiences, posts, books, tools] = await Promise.all([
   sanityClient.fetch(`*[_type == "siteSettings"][0]{
     name, headline, bio, currentRole, currentCompany, location,
     email, linkedInUrl, twitterHandle,
-    "photoUrl": photo.asset->url
+    photo
   }`).catch(() => null),
   sanityClient.fetch(`*[_type == "focusArea"] | order(order asc){
     number, title, description
@@ -35,6 +36,11 @@ const [siteSettings, focusAreas, experiences, posts, books, tools] = await Promi
     name, category, description, url
   }`).catch(() => []),
 ]);
+
+const builder = imageUrlBuilder(sanityClient);
+const photoUrl = siteSettings?.photo
+  ? builder.image(siteSettings.photo).width(600).height(600).fit("crop").crop("focalpoint").focalPoint(0.42, 0.18).url()
+  : null;
 ---
 <Layout
   title={siteSettings?.name ?? "Priyanka Navle"}
@@ -48,7 +54,7 @@ const [siteSettings, focusAreas, experiences, posts, books, tools] = await Promi
     currentRole={siteSettings?.currentRole}
     currentCompany={siteSettings?.currentCompany}
     location={siteSettings?.location}
-    photoUrl={siteSettings?.photoUrl}
+    photoUrl={photoUrl}
   />
 
   <FocusAreas areas={focusAreas?.length ? focusAreas : undefined} />

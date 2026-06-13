@@ -53,4 +53,8 @@ const { name = "Priyanka Navle" } = Astro.props;
   .nav-links a:hover {
     color: var(--cream);
   }
+  @media (max-width: 640px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 10px; }
+  }
 </style>
