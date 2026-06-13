@@ -4,7 +4,6 @@ export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site Settings",
   type: "document",
-  __experimental_actions: ["update", "publish"],
   fields: [
     defineField({ name: "name", title: "Full Name", type: "string", validation: (r) => r.required() }),
     defineField({ name: "headline", title: "Hero Headline (supports <em> tags)", type: "text", rows: 2 }),
